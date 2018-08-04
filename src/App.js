@@ -8,6 +8,8 @@ import {Easing,Animated} from 'react-native';
 import LoginScreen from './screens/loginScreen';
 import ComplainList from './screens/complainList';
 import ComplainScreen from './screens/complainScreen';
+import AddComplainScreen from './screens/addComplainScreen';
+import ChoosePhotoScreen from './screens/choosePhotoScreen';
 
 
 const AppStackMain =  StackNavigator({
@@ -25,6 +27,18 @@ const AppStackMain =  StackNavigator({
   },
   ComplainScreen:{
     screen: ComplainScreen,
+    navigationOptions: {
+        header: () => null,
+    }
+  },
+  AddComplainScreen:{
+    screen: AddComplainScreen,
+    navigationOptions: {
+        header: () => null,
+    }
+  },
+  ChoosePhotoScreen:{
+    screen: ChoosePhotoScreen,
     navigationOptions: {
         header: () => null,
     }

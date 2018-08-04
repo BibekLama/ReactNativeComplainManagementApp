@@ -73,12 +73,16 @@ export default class ComplainList extends PureComponent{
         />
     );
 
+    _onAddButtonPressed = () => {
+        this.props.navigation.navigate('AddComplainScreen');
+    }
+
     render(){
         return(
             <View style={styles.container}>
                 <StatusBar
-                    backgroundColor="#d79b18"
-                    barStyle="light-content"
+                    backgroundColor="#fbc654"
+                    barStyle="dark-content"
                     translucent={true}
                 />
                 <View style={styles.contentBody}>
@@ -97,7 +101,7 @@ export default class ComplainList extends PureComponent{
                             <Text style={styles.headerTitle}>Complain List</Text>
                         </View>
                         <View style={styles.appBarLeft}>
-                            <RippleIcon type="ionicon" name="ios-add" size={24} color="#05285b" onPress={()=>alert("ok")} />
+                            <RippleIcon type="ionicon" name="ios-add" size={24} color="#05285b" onPress={()=>this._onAddButtonPressed()} />
                         </View>
                     </View>
 
@@ -106,6 +110,7 @@ export default class ComplainList extends PureComponent{
                         extraData={this.state}
                         keyExtractor={this._keyExtractor}
                         renderItem={this._renderItem}
+                        style={styles.complainList}
                     />
                 </View>
             </View>
@@ -146,7 +151,7 @@ const styles = StyleSheet.create({
         flexDirection:'row',
     },
     logo: {
-        marginHorizontal:16
+        marginHorizontal:10
     },
     logoText: {
         fontSize: 12,
@@ -156,5 +161,8 @@ const styles = StyleSheet.create({
         fontSize:16,
         fontWeight: 'bold',
         color: '#05285b',
+    },
+    complainList: {
+        paddingVertical:10
     }
 });

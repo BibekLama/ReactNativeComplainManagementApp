@@ -55,8 +55,8 @@ export default class ComplainScreen extends PureComponent{
         return(
             <View style={styles.container}>
                 <StatusBar
-                    backgroundColor="#d79b18"
-                    barStyle="light-content"
+                    backgroundColor="#fbc654"
+                    barStyle="dark-content"
                     translucent={true}
                 />
                 <View style={styles.contentBody}>
@@ -71,7 +71,7 @@ export default class ComplainScreen extends PureComponent{
                         </View> */}
                     </View>
                     
-                    <ScrollView contentContainerStyle={styles.complainContainer}>
+                    <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                         <Avatar
                             large
                             rounded
@@ -128,7 +128,12 @@ const styles = StyleSheet.create({
         alignItems:'center',
         flexDirection:'row',
     },
-    complainContainer:{
+    headerTitle:{
+        fontSize:16,
+        fontWeight: 'bold',
+        color: '#05285b',
+    },
+    scrollViewContainer:{
         flex:1,
         flexGrow:1,
         justifyContent:'flex-start',

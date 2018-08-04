@@ -18,7 +18,7 @@ export default class CustomTextInput extends Component{
 
     render(){
         const {placeholder, text, keyboardType} = this.state;
-        const {bgColor, radius, color, placeholderColor} = this.props;
+        const {placeholderColor, multiline=false,inputStyle} = this.props;
 
         return(
             <TextInput 
@@ -28,24 +28,9 @@ export default class CustomTextInput extends Component{
                 underlineColorAndroid="transparent"
                 onChangeText={(t) => this.onChangeText(t)}
                 value={text}
-                style={[
-                    styles.input,
-                    {
-                        borderRadius: radius,
-                        borderColor: color,
-                        borderWidth: 1,
-                        color: color
-                    }
-                ]}
+                multiline = {multiline}
+                style={inputStyle}
             />
         );
     }
 }
-
-const styles = StyleSheet.create({
-    input: {
-        width:'100%',
-        marginVertical:10,
-        paddingHorizontal: 15
-    }
-});

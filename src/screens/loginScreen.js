@@ -23,6 +23,7 @@ export default class App extends PureComponent {
         this.props.navigation.navigate('ComplainList');
     }
 
+
     render(){
         return(
             <ImageBackground
@@ -31,7 +32,7 @@ export default class App extends PureComponent {
             > 
                 <StatusBar
                     backgroundColor="transparent"
-                    barStyle="dark-content"
+                    barStyle="light-content"
                     translucent={true}
                 />
                 <View style={styles.topSection}>
@@ -54,27 +55,21 @@ export default class App extends PureComponent {
                     <CustomTextInput
                         placeholder="FULLNAME"
                         keyboardType = "default"
-                        bgColor = "rgba(0,0,0,0.5)"
-                        radius = {8}
-                        color= 'white'
                         placeholderColor = '#e5e5e5'
+                        inputStyle={styles.inputStyle}
                     />
                     <CustomTextInput
                         placeholder="MOBILE NUMBER"
                         keyboardType = "phone-pad"
-                        bgColor = "rgba(0,0,0,0.5)"
-                        radius = {8}
-                        color = 'white'
                         placeholderColor = '#e5e5e5'
+                        inputStyle={styles.inputStyle}
                     />
 
                     <CustomButton
                         onPress={this.handleSubmitButton.bind(this)}
                         title="SUBMIT"
-                        color="#13244f"
-                        radius={8}
-                        titleSize={16}
-                        titleColor= "#FFFFFF"
+                        titleStyle = {styles.buttonTitle}
+                        buttonStyle = {styles.buttonStyle}
                     />
                 </View>
             </ImageBackground>
@@ -118,9 +113,29 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#ffffff'
     },
-    submitButton: {
+    inputStyle:{
         width:'100%',
-        height:40
+        marginVertical:8,
+        borderColor:'#fff',
+        color:'#fff',
+        borderWidth:1,
+        borderRadius:8,
+        backgroundColor:'rgba(0,0,0,0.1)',
+        paddingHorizontal:10
+    },
+    buttonStyle: {
+        width:'100%',
+        height:50,
+        alignItems:'center',
+        justifyContent:'center',
+        marginVertical: 15,
+        backgroundColor:'#13244f', 
+        borderRadius:8, 
+    },
+    buttonTitle:{
+        color: '#FFF',
+        fontSize:16,
+        fontWeight:'bold'
     }
 });
   
