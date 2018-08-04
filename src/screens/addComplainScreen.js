@@ -80,7 +80,7 @@ export default class AddComponent extends PureComponent{
         return(
             <View style={styles.container}>
                 <StatusBar
-                    backgroundColor="#fbc654"
+                    backgroundColor="#efbd52"
                     barStyle="dark-content"
                     translucent={true}
                 />
