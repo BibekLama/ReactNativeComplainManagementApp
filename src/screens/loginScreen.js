@@ -31,7 +31,7 @@ export default class App extends PureComponent {
                 style={styles.container}
             > 
                 <StatusBar
-                    backgroundColor="#c5a257"
+                    backgroundColor="#f7b935"
                     barStyle="dark-content"
                     translucent={true}
                 />

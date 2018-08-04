@@ -21,7 +21,7 @@ export default class ChoosePhotoScreen extends PureComponent{
         return (
             <View style={styles.container}>
                 <StatusBar
-                    backgroundColor="#efbd52"
+                    backgroundColor="#f7b935"
                     barStyle="dark-content"
                     translucent={true}
                 />
