@@ -1,10 +1,8 @@
 import React, {PureComponent} from 'react';
 import {
-    Platform,
     StyleSheet, 
     BackHandler, 
     StatusBar, 
-    NativeModules,
     View, 
     Text,
     FlatList
@@ -13,12 +11,10 @@ import {
     Avatar
 } from 'react-native-elements';
 
+import AppBar from '../components/AppBar';
+
 import RippleIcon from '../components/RippleIcon';
 import ComlpainListItem from '../components/ComplainListItem';
-
-const { StatusBarManager } = NativeModules;
-
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? StatusBarManager.getHeight() : StatusBarManager.HEIGHT;
 
 import _data from '../constants/complainDatas';
 
@@ -85,26 +81,26 @@ export default class ComplainList extends PureComponent{
                     barStyle="dark-content"
                     translucent={true}
                 />
+                <AppBar
+                    leftContent= {[
+                        <Avatar
+                            key={1}
+                            small
+                            rounded
+                            title="LOGO"
+                            titleStyle={styles.logoText}
+                            onPress={() => console.log("Works!")}
+                            overlayContainerStyle={{backgroundColor: 'white'}}
+                            activeOpacity={0.7}
+                            containerStyle={styles.logo}
+                        />,
+                        <Text key={2} style={styles.headerTitle}>Complain List</Text>
+                    ]}
+                    rightContent={[
+                        <RippleIcon key={1} type="ionicon" name="ios-add" size={24} color="#05285b" onPress={()=>this._onAddButtonPressed()} />
+                    ]}
+                />
                 <View style={styles.contentBody}>
-                    <View style={styles.appBar}>
-                        <View style={styles.appBarLeft}>
-                            <Avatar
-                                small
-                                rounded
-                                title="LOGO"
-                                titleStyle={styles.logoText}
-                                onPress={() => console.log("Works!")}
-                                overlayContainerStyle={{backgroundColor: 'white'}}
-                                activeOpacity={0.7}
-                                containerStyle={styles.logo}
-                            />
-                            <Text style={styles.headerTitle}>Complain List</Text>
-                        </View>
-                        <View style={styles.appBarLeft}>
-                            <RippleIcon type="ionicon" name="ios-add" size={24} color="#05285b" onPress={()=>this._onAddButtonPressed()} />
-                        </View>
-                    </View>
-
                     <FlatList
                         data={_data}
                         extraData={this.state}
@@ -129,26 +125,6 @@ const styles = StyleSheet.create({
         flex:1,
         width:'100%',
         backgroundColor: '#e5e5e5'
-    },
-    appBar: {
-        width:'100%',
-        height:50,
-        backgroundColor: '#fbc654',
-        marginTop: STATUSBAR_HEIGHT,
-        justifyContent:'space-between',
-        alignItems:'center',
-        flexDirection:'row',
-        elevation:3,
-    },
-    appBarLeft:{
-        justifyContent:'flex-start',
-        alignItems:'center',
-        flexDirection:'row',
-    },
-    appBarRight:{
-        justifyContent:'flex-end',
-        alignItems:'center',
-        flexDirection:'row',
     },
     logo: {
         marginHorizontal:10

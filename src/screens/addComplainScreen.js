@@ -1,15 +1,20 @@
 import React,{PureComponent} from 'react';
 import {
-    Platform,
     StyleSheet,
     BackHandler,
     StatusBar,
-    NativeModules,
     View,
     Text,
     Picker,
-    ScrollView
+    ScrollView,
+    Modal,
+    Dimensions,
+    Image,
 } from 'react-native';
+
+import ImagePicker from "react-native-image-picker";
+
+const { width } = Dimensions.get('window')
 
 
 import RippleIcon from '../components/RippleIcon';
@@ -17,9 +22,7 @@ import RippleIcon from '../components/RippleIcon';
 import CustomTextInput from '../components/CustomTextInput';
 import CustomButton from '../components/CustomButton';
 
-const { StatusBarManager } = NativeModules;
-
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? StatusBarManager.getHeight() : StatusBarManager.HEIGHT;
+import AppBar from '../components/AppBar';
 
 
 export default class AddComponent extends PureComponent{
@@ -33,7 +36,9 @@ export default class AddComponent extends PureComponent{
         BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPressAndroid)
         );
         this.state = {
-            complainType : "electricity"
+            complainType : "electricity",
+            modalVisible: false,
+            pickedImage: null
         };
     }
 
@@ -76,6 +81,35 @@ export default class AddComponent extends PureComponent{
         // });
     };
 
+    toggleModal = () => {
+        this.setState({ modalVisible: !this.state.modalVisible });
+    }
+
+    reset = () => {
+        this.setState({
+          pickedImage: null
+        });
+    }
+
+    pickImageHandler = () => {
+        ImagePicker.showImagePicker({title: "Pick an Image", maxWidth: 800, maxHeight: 600}, res => {
+          if (res.didCancel) {
+            console.log("User cancelled!");
+          } else if (res.error) {
+            console.log("Error", res.error);
+          } else {
+            this.setState({
+              pickedImage: { uri: res.uri }
+            });  
+          }
+        });
+    }
+
+    resetHandler = () =>{
+        this.reset();
+    }
+    
+
     render(){
         return(
             <View style={styles.container}>
@@ -84,15 +118,17 @@ export default class AddComponent extends PureComponent{
                     barStyle="dark-content"
                     translucent={true}
                 />
+                <AppBar
+                    leftContent= {[
+                        <RippleIcon key={1} type="ionicon" name="md-arrow-back" size={24} color="#05285b" onPress={()=> this._onBackIconPress()} />,
+                        <Text key={2} style={styles.headerTitle}>New Complain</Text>
+                    ]}
+                />
                 <View style={styles.contentBody}>
-                    <View style={styles.appBar}>
-                        <View style={styles.appBarLeft}>
-                            <RippleIcon type="ionicon" name="md-arrow-back" size={24} color="#05285b" onPress={()=> this._onBackIconPress()} />
-                            <Text style={styles.headerTitle}>New Complain</Text>
-                        </View>
-                    </View>
-
-                    <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+                    <ScrollView 
+                        behaviour = "height"
+                        contentContainerStyle={styles.scrollViewContainer}
+                    >
                         <Text style={styles.label}>Complain Type</Text>
                         <View style={styles.inputPicker}>
                             <Picker
@@ -114,12 +150,17 @@ export default class AddComponent extends PureComponent{
                             multiline = {true}
                             inputStyle = {styles.inputStyle}
                         />
+
+                        <View style={styles.placeholder}>
+                            <Image source={this.state.pickedImage} style={styles.previewImage} />
+                        </View>
                         <CustomButton
-                            onPress={this._handlePhotoButtonPress.bind(this)}
+                            onPress={() => this.pickImageHandler() }
                             title="Choose Photo"
                             titleStyle = {styles.imageChooseTitle}
                             buttonStyle = {styles.imageChooseStyle}
                         />
+
                         <CustomButton
                             onPress={this.handleSubmitButton.bind(this)}
                             title="SUBMIT"
@@ -127,7 +168,6 @@ export default class AddComponent extends PureComponent{
                             buttonStyle = {styles.submitStyle}
                         />
                     </ScrollView>
-
                 </View>
             </View>
         )
@@ -146,28 +186,12 @@ const styles = StyleSheet.create({
         width:'100%',
         backgroundColor: '#e5e5e5'
     },
-    appBar: {
-        width:'100%',
-        height:50,
-        backgroundColor: '#fbc654',
-        marginTop: STATUSBAR_HEIGHT,
-        justifyContent:'space-between',
-        alignItems:'center',
-        flexDirection:'row',
-        elevation:3,
-    },
-    appBarLeft:{
-        justifyContent:'flex-start',
-        alignItems:'center',
-        flexDirection:'row',
-    },
     headerTitle:{
         fontSize:16,
         fontWeight: 'bold',
         color: '#05285b',
     },
     scrollViewContainer:{
-        flex:1,
         flexGrow:1,
         justifyContent:'flex-start',
         alignItems:'flex-start',
@@ -222,5 +246,15 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontSize:16,
         fontWeight:'bold'
+    },
+    placeholder: {
+        marginTop:10, 
+        width:'100%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    previewImage: {
+        width: 267,
+        height: 200
     }
 });

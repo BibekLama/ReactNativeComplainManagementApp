@@ -4,18 +4,14 @@ import {
     StyleSheet, 
     BackHandler, 
     StatusBar, 
-    NativeModules,
     View, 
     Text,
     ScrollView,
     Image
 } from 'react-native';
+import AppBar from '../components/AppBar';
 import {Icon,Avatar} from 'react-native-elements';
 import RippleIcon from '../components/RippleIcon';
-
-const { StatusBarManager } = NativeModules;
-
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? StatusBarManager.getHeight() : StatusBarManager.HEIGHT;
 
 
 export default class ComplainScreen extends PureComponent{
@@ -59,18 +55,13 @@ export default class ComplainScreen extends PureComponent{
                     barStyle="dark-content"
                     translucent={true}
                 />
+                <AppBar
+                    leftContent= {[
+                        <RippleIcon key={1} type="ionicon" name="md-arrow-back" size={24} color="#05285b" onPress={()=> this._onBackIconPress()} />,
+                        <Text key={2} style={styles.headerTitle}>Complain</Text>
+                    ]}
+                />
                 <View style={styles.contentBody}>
-                    <View style={styles.appBar}>
-                        <View style={styles.appBarLeft}>
-                            <RippleIcon type="ionicon" name="md-arrow-back" size={24} color="#05285b" onPress={()=> this._onBackIconPress()} />
-                            <Text style={styles.headerTitle}>Complain</Text>
-                        </View>
-                        {/* <View style={styles.appBarLeft}>
-                            <RippleIcon type="ionicon" name="ios-trash" size={24} color="#05285b" onPress={()=>alert("delete complain")} />
-                            <RippleIcon type="ionicon" name="ios-checkmark-circle-outline" size={24} color="#05285b" onPress={()=>alert("delete complain")} />
-                        </View> */}
-                    </View>
-                    
                     <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                         <Avatar
                             large
@@ -112,21 +103,6 @@ const styles = StyleSheet.create({
         flex:1,
         width:'100%',
         backgroundColor: '#e5e5e5'
-    },
-    appBar: {
-        width:'100%',
-        height:50,
-        backgroundColor: '#fbc654',
-        marginTop: STATUSBAR_HEIGHT,
-        justifyContent:'space-between',
-        alignItems:'center',
-        flexDirection:'row',
-        elevation:3,
-    },
-    appBarLeft:{
-        justifyContent:'flex-start',
-        alignItems:'center',
-        flexDirection:'row',
     },
     headerTitle:{
         fontSize:16,

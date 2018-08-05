@@ -46,10 +46,7 @@ export default class App extends PureComponent {
                         activeOpacity={0.7}
                         containerStyle={styles.logo}
                     />
-                    <Image
-                        style={styles.appTitle}
-                        source={require('../assets/imgs/appTitle.png')}
-                    />
+                    <Text style={styles.appTitle}>App Name</Text>
                 </View>
                 <View style={styles.bottomSection}>
                     <CustomTextInput
@@ -106,8 +103,8 @@ const styles = StyleSheet.create({
         color: '#05285b'
     },
     appTitle: {
-        width:width-48,
-        height: 22
+        fontSize:30,
+        fontFamily: "Prata"
     },
     appSubTitle: {
         fontSize: 14,
