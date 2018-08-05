@@ -104,7 +104,8 @@ const styles = StyleSheet.create({
     },
     appTitle: {
         fontSize:30,
-        fontFamily: "Prata"
+        fontFamily: "Prata",
+        color: '#05285b'
     },
     appSubTitle: {
         fontSize: 14,
