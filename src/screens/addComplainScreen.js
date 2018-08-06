@@ -37,7 +37,7 @@ export default class AddComponent extends PureComponent{
         );
         this.state = {
             complainType : "electricity",
-            modalVisible: false,
+            description: "",
             pickedImage: null
         };
     }
@@ -63,23 +63,16 @@ export default class AddComponent extends PureComponent{
     }
 
     handleSubmitButton(){
-        this.props.navigation.navigate('ComplainList');
+        const{description,complainType,pickedImage} = this.state;
+        if(description){
+            this.props.navigation.navigate('ComplainList');
+        }else{
+            alert("Please write complain description.")
+        } 
+        
     }
 
-    _handlePhotoButtonPress = () => {
-        // CameraRoll.getPhotos({
-        //     first: 20,
-        //     assetType: 'Photos',
-        // })
-        // .then(r => {
-        //     this.props.navigation.navigate('ChoosePhotoScreen', {photos: r.edges});
-        //     // this.setState({ photos: r.edges });
-        // })
-        // .catch((err) => {
-        //     //Error Loading Images
-        //     alert("Error Loading Images")
-        // });
-    };
+    
 
     toggleModal = () => {
         this.setState({ modalVisible: !this.state.modalVisible });
@@ -149,6 +142,8 @@ export default class AddComponent extends PureComponent{
                             placeholderColor = '#999'
                             multiline = {true}
                             inputStyle = {styles.inputStyle}
+                            value={this.state.description}
+                            onChangeText={(t)=> this.setState({description:t})}
                         />
 
                         <View style={styles.placeholder}>

@@ -36,7 +36,7 @@ export default class App extends PureComponent {
                 if(mobileNumber.charAt(0) !== "9"){
                     alert("Invalid Mobile Number");
                 }else{
-                    alert("OK");
+                    this.props.navigation.navigate('ComplainList');
                 }
             }
         }else{
