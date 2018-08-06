@@ -15,12 +15,35 @@ import {Avatar} from 'react-native-elements';
 import CustomTextInput from '../components/CustomTextInput';
 import CustomButton from '../components/CustomButton';
 
-const BG_URL = require('../assets/imgs/login_bg.jpg');
+const BG_URL = require('../assets/imgs/login_bg1.jpg');
 
 export default class App extends PureComponent {
 
+    constructor(props){
+        super(props);
+        this.state = {
+            fullName: "",
+            mobileNumber: ""
+        }
+    }
+
     handleSubmitButton(){
-        this.props.navigation.navigate('ComplainList');
+        const{fullName, mobileNumber} = this.state;
+        if(fullName && mobileNumber){
+            if(mobileNumber.length !== 10){
+                alert("Invalid Mobile Number");
+            }else{
+                if(mobileNumber.charAt(0) !== "9"){
+                    alert("Invalid Mobile Number");
+                }else{
+                    alert("OK");
+                }
+            }
+        }else{
+            alert("Name and mobile number is required");
+        }
+        // this.props.navigation.navigate('ComplainList');
+        // alert("Name: "+this.state.fullName+" Mobile: "+this.state.mobileNumber);
     }
 
 
@@ -50,16 +73,21 @@ export default class App extends PureComponent {
                 </View>
                 <View style={styles.bottomSection}>
                     <CustomTextInput
+                        value = {this.state.fullName}
                         placeholder="FULLNAME"
                         keyboardType = "default"
                         placeholderColor = '#e5e5e5'
                         inputStyle={styles.inputStyle}
+                        onChangeText = {(t) => this.setState({fullName:t})}
                     />
                     <CustomTextInput
+                        value = {this.state.mobileNumber}
+                        name = "mobile"
                         placeholder="MOBILE NUMBER"
                         keyboardType = "phone-pad"
                         placeholderColor = '#e5e5e5'
                         inputStyle={styles.inputStyle}
+                        onChangeText = {(t)=>this.setState({mobileNumber:t})}
                     />
 
                     <CustomButton
@@ -118,7 +146,7 @@ const styles = StyleSheet.create({
         color:'#fff',
         borderWidth:1,
         borderRadius:8,
-        backgroundColor:'rgba(0,0,0,0.1)',
+        backgroundColor:'rgba(0,0,0,0.2)',
         paddingHorizontal:10
     },
     buttonStyle: {

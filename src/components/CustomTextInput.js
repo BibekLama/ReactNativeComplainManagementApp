@@ -6,19 +6,14 @@ export default class CustomTextInput extends Component{
     constructor(props){
         super(props);
         this.state = {
-            text: "",
             placeholder: this.props.placeholder,
             keyboardType: this.props.keyboardType
         };
     }
 
-    onChangeText = (text) => {
-        this.setState({text});
-    }
-
     render(){
         const {placeholder, text, keyboardType} = this.state;
-        const {placeholderColor, multiline=false,inputStyle} = this.props;
+        const {placeholderColor, multiline=false,inputStyle,value,onChangeText} = this.props;
 
         return(
             <TextInput 
@@ -26,10 +21,10 @@ export default class CustomTextInput extends Component{
                 placeholderTextColor={placeholderColor}
                 keyboardType={keyboardType}
                 underlineColorAndroid="transparent"
-                onChangeText={(t) => this.onChangeText(t)}
-                value={text}
                 multiline = {multiline}
                 style={inputStyle}
+                value={value}
+                onChangeText={onChangeText}
             />
         );
     }
